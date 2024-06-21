@@ -24,5 +24,6 @@
 			"default": false
 
 		}
-	}
+	},
+	"early-load":true
 }
