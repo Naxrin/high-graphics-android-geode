@@ -12,6 +12,7 @@ namespace fs = std::filesystem;
 class $modify(LoadingLayer) {
     // load saved graphics setting instead of medium graphics on startup
     bool init(bool p0) {
+        GameManager::sharedState()->m_texQuality = Mod::get()->getSavedValue<int64_t>("quality");
         if (GameManager::sharedState()->m_texQuality == 1) {
                 CCDirector::get()->updateContentScale(TextureQuality::kTextureQualityLow);
         }
@@ -157,3 +158,8 @@ class $modify (MenuLayer) {
         return true;
     }
 };
+
+$on_mod(DataSaved) {
+    log::info("Saving texture packs");
+    Mod::get()->setSavedValue("quality", GameManager::sharedState()->m_texQuality);
+}
